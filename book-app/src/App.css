@@ -1,0 +1,12 @@
+.App, body, html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 375px;
+  height: 812px;
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'SF Pro Display', sans-serif;
+}
