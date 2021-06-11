@@ -17,7 +17,7 @@ export default function Detail() {
             <BookCover />
             <BookTitle title='Hooked : How to Build Habid-Forming Products'/>
             <BookAuthor author='Nir Eyal' />
-            <BookDescription description='How do successful companies create products people can’t put down?<br /><br />Why do some products capture widespread attention while others flop?<br /><br />Why do some products capture widespread attention while others flop?Why do some products capture widespread attention while others flop?' />
+            <BookDescription description='How do successful companies create products people can’t put down?<br /><br />Why do some products capture widespread attention while others flop?<br /><br />Why do some products capture widespread attention while others flop?<br /><br />Why do some products capture widespread attention while others flop?' />
             <BookOptions />
         </Background>
     );
