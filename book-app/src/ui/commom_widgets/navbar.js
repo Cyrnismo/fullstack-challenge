@@ -10,19 +10,19 @@ export const Navbar = () => {
     const [isAdd, setAdd] = useState(false);
     const [isPerson, setPerson] = useState(false);
 
-    function onChangeHome() {
+    function onClickHome() {
         setHome(true);
         setAdd(false);
         setPerson(false);
     }
 
-    function onChangeAdd() {
+    function onClickAdd() {
         setAdd(true);
         setHome(false);
         setPerson(false);
     }
 
-    function onChangePerson() {
+    function onClickPerson() {
         setPerson(true);
         setHome(false);
         setAdd(false);
@@ -30,9 +30,9 @@ export const Navbar = () => {
 
     return(
         <NContainer>
-            <HomeBtn isHome={isHome} onClick={() => onChangeHome()} />
-            <AddBtn isAdd={isAdd} onClick={() => onChangeAdd()} />
-            <PersonBtn isPerson={isPerson} onClick={() => onChangePerson()} />
+            <HomeBtn isHome={isHome} onClick={() => onClickHome()} />
+            <AddBtn isAdd={isAdd} onClick={() => onClickAdd()} />
+            <PersonBtn isPerson={isPerson} onClick={() => onClickPerson()} />
         </NContainer>    
     );
 }
@@ -48,6 +48,7 @@ const NContainer = styled.div`
     top: 755px;
     left: 2px;
     border-radius: 0px 0px 16px 16px;
+    box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
     background: #FFFFFF;
 `;
 
@@ -76,7 +77,7 @@ const BtnLabel = styled.h4`
 // Buttons ~
 
 const HomeBtn = ({isHome}) => {
-    console.log(`Home: ${   isHome}`);
+    console.log(`Home: ${isHome}`);
 
     return (
         <BtnContainer to='/'>
