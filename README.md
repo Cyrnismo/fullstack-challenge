@@ -6,10 +6,7 @@ https://www.figma.com/file/KFElqzD983WNyvMY1SaF0c/book-app?node-id=0%3A1
 
 The website design has 4 screens, which are:
 
-### Home
-### Search
-### Books Details
-### New Book
+### Home, Search, Books Details, New Book
 
 #### Horários:
 
