@@ -11,22 +11,28 @@ export const Navbar = () => {
     const [isPerson, setPerson] = useState(false);
 
     function onChangeHome() {
-        setHome(!isHome);
+        setHome(true);
+        setAdd(false);
+        setPerson(false);
     }
 
     function onChangeAdd() {
-        setAdd(!isAdd);
+        setAdd(true);
+        setHome(false);
+        setPerson(false);
     }
 
     function onChangePerson() {
-        setPerson(!isPerson);
+        setPerson(true);
+        setHome(false);
+        setAdd(false);
     }
 
     return(
         <NContainer>
-            <HomeBtn isHome={isHome} onClick={() => {onChangeHome()}}/>
-            <AddBtn isAdd={isAdd} onClick={() => {onChangeAdd()}} />
-            <PersonBtn isPerson={isPerson} onClick={() => {onChangePerson()}} />
+            <HomeBtn isHome={isHome} onClick={() => onChangeHome()} />
+            <AddBtn isAdd={isAdd} onClick={() => onChangeAdd()} />
+            <PersonBtn isPerson={isPerson} onClick={() => onChangePerson()} />
         </NContainer>    
     );
 }
@@ -70,7 +76,7 @@ const BtnLabel = styled.h4`
 // Buttons ~
 
 const HomeBtn = ({isHome}) => {
-    console.log(`Home: ${isHome}`);
+    console.log(`Home: ${   isHome}`);
 
     return (
         <BtnContainer to='/'>
@@ -115,7 +121,7 @@ const PersonBtn = ({isPerson}) => {
     console.log(`Person: ${isPerson}`);
 
     return (
-        <BtnContainer to='/'>
+        <BtnContainer to='/detail'>
             <PersonIcon size={24} isPerson={isPerson} />
             <PersonLabel isPerson={isPerson}>Person</PersonLabel>
         </BtnContainer>
