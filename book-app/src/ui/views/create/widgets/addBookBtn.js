@@ -21,6 +21,7 @@ const ABBtn = styled.button`
     font-size: 24px;
     line-height: 29px;
     color: #FFF;
+    box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
 
     background: #FF6978;
     border-radius: 10px;

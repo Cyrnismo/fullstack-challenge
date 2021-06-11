@@ -64,6 +64,7 @@ const SInput = styled.input`
     outline: #F0F0F0;
     background: #FDFCFC;
     border-radius: 10px;
+    box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
 
     input::active,
     input::focus {

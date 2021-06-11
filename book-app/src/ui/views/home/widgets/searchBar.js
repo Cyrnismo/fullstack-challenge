@@ -22,6 +22,7 @@ const SBContainer = styled.div`
     top: 50px;
 
     background: #FDFCFC;
+    box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
     border-radius: 10px;
 `;
 
