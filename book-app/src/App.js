@@ -1,4 +1,8 @@
 import './App.css';
+import './assets/fonts/Roboto-Bold.ttf';
+import './assets/fonts/FontsFree-Net-SFProDisplay-Regular.ttf';
+import './assets/fonts/FontsFree-Net-SFProText-Bold.ttf';
+import './assets/fonts/FontsFree-Net-SFProText-Regular.ttf';
 import styled from 'styled-components';
 import Home from './ui/views/home/Home';
 import Detail from './ui/views/detail/Detail';
