@@ -1,9 +1,53 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 
-export const AddBookBtn = (onClick) => {
+export const AddBookBtn = (bookTitle, bookAuthor, bookDescription) => {
+    const [title, setTitle] = useState(bookTitle);
+    const [author, setAuthor] = useState(bookAuthor);
+    const [description, setDesc] = useState(bookDescription);
+    
+    const addBookWithAxios = useCallback((bookTitle, bookAuthor, bookDescription) => {
+        var _url = 'http://192.168.0.110:3001/api/books/add';
+
+        const axiosResponse = axios.post({ method: 'post', url: _url, data: {
+            book: {
+                title: bookTitle,
+                author: bookAuthor,
+                description: bookDescription
+            }
+        }}).then(() => {
+            setTitle('');
+            setAuthor('');
+            setDesc('');
+        });
+    }, []);
+
+    const addBook = useCallback((bookTitle, bookAuthor, bookDescription) => {
+        var _url = 'http://192.168.0.110:3001/api/books/add';
+        
+        fetch(_url, {
+            method: 'POST',
+            body: JSON.stringify({
+              book: { bookTitle, bookAuthor, bookDescription }
+            })
+        })
+        .then(() => {
+        setTitle('');
+        setAuthor('');
+        setDesc('');
+        // setModalVisible(true)
+        })
+    }, [])
+
+    useEffect((title, author, description) => {
+        addBookWithAxios(title, author, description)
+        addBook(title, author, description)
+    }, [addBookWithAxios, addBook]);
+
+
     return (
-        <ABBtn onClick={onClick}>Add new book</ABBtn>
+        <ABBtn onClick={addBook(title, author, description)}>Add new book</ABBtn>
     );
 }
 
