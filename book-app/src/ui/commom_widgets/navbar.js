@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Person } from '@styled-icons/bootstrap/Person';
@@ -6,9 +6,9 @@ import { Add } from '@styled-icons/fluentui-system-filled/Add';
 import { HomeAlt } from '@styled-icons/boxicons-regular/HomeAlt';
 
 export const Navbar = () => {
-    const [isHome, setHome] = useState(true);
-    const [isAdd, setAdd] = useState(false);
-    const [isPerson, setPerson] = useState(false);
+    let [isHome, setHome] = useState(false);
+    let [isAdd, setAdd] = useState(false);
+    let [isPerson, setPerson] = useState(false);
 
     function onClickHome() {
         setHome(true);
@@ -27,6 +27,10 @@ export const Navbar = () => {
         setHome(false);
         setAdd(false);
     }
+
+    useEffect(() => {
+        console.log(isHome, isAdd, isPerson);
+    }, [isHome, isAdd, isPerson])
 
     return(
         <NContainer>
@@ -76,7 +80,7 @@ const BtnLabel = styled.h4`
 
 // Buttons ~
 
-const HomeBtn = ({isHome}) => {
+const HomeBtn = (isHome) => {
     console.log(`Home: ${isHome}`);
 
     return (
@@ -90,11 +94,12 @@ const HomeBtn = ({isHome}) => {
 const HomeIcon = styled(HomeAlt)`
     position: absolute;
     top: 10px;
-    color: ${(props) => props.isHome ? '#000' : '#BFBEBF'};
+    color: ${(props) => props.isHome === 'true' ? '#000' : '#BFBEBF'};
 `;
 
 const HomeLabel = styled(BtnLabel)`
-    color: ${(props) => props.isHome ? '#000' : '#BFBEBF'};
+    color: ${(props) => props.isHome === 'true' ? '#000' : '#BFBEBF'};
+    background-color: 2px 2px 16px #000;
 `;
 
 const AddBtn = ({isAdd}) => {
@@ -111,11 +116,11 @@ const AddBtn = ({isAdd}) => {
 const AddIcon = styled(Add)`
     position: absolute;
     top: 10px;
-    color: ${(props) => props.isAdd ? '#000' : '#BFBEBF'};
+    color: ${(props) => props.isAdd === 'true' ? '#000' : '#BFBEBF'};
 `;
 
 const AddLabel = styled(BtnLabel)`
-    color: ${(props) => props.isAdd ? '#000' : '#BFBEBF'};
+    color: ${(props) => props.isAdd === 'true' ? '#000' : '#BFBEBF'};
 `;
 
 const PersonBtn = ({isPerson}) => {
@@ -132,9 +137,9 @@ const PersonBtn = ({isPerson}) => {
 const PersonIcon = styled(Person)`
     position: absolute;
     top: 10px;
-    color: ${(props) => props.isPerson ? '#000' : '#BFBEBF'};
+    color: ${(props) => props.isPerson === 'true' ? '#000' : '#BFBEBF'};
 `;
 
 const PersonLabel = styled(BtnLabel)`
-    color: ${(props) => props.isPerson ? '#000' : '#BFBEBF'};
+    color: ${(props) => props.isPerson === 'true' ? '#000' : '#BFBEBF'};
 `;
