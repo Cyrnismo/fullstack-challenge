@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../../App.css';
 import styled from 'styled-components';
 import Emojis from 'react-emoji-component';
 
@@ -27,7 +28,7 @@ const UGContainer = styled.div`
 
 const Title = styled.h1`
     margin-right: 10px;
-    font-family: SF Pro Display;
+    font-family: SF Pro Display, SF Pro Text;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
