@@ -10,7 +10,22 @@ const PORT = process.env.PORT || 3001;
 
 // Add headers
 
-app.use(cors());
+const allowedOrigins = ["http://192.168.0.110:3000", "http://localhost:3000"];
+
+app.use(
+    cors({
+        origin: function(origin, callback) {
+            if (!origin) return callback(null, true);
+            if (allowedOrigins.indexOf(origin) === -1) {
+                var msg =
+                    "The CORS policy for this site does not " +
+                    "allow access from the specified Origin.";
+                return callback(new Error(msg), false);
+            }
+            return callback(null, true);
+        }
+    })
+); 
 
 app.use(function (req, res, next) {
 
@@ -29,7 +44,7 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 
-app.use('/', booksRouter)
+app.use('/', booksRouter);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
