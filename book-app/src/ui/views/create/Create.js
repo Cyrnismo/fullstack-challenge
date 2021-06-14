@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TextInput } from './widgets/textInput';
 import { AddBookBtn } from './widgets/addBookBtn';
 import { Navbar } from '../../commom_widgets/navbar';
 import { TextAreaInput } from './widgets/textAreaInput';
 
+
+
 export default function Create() {
+    const [name, onChangeName] = useState('');
+    const [author, onChangeAuthor] = useState('');
+    const [description, onChangeDesc] = useState('');
+    // const [modalVisible, setModalVisible] = useState(false);
+
     return (
         <Background>
             <Title>Add new book</Title>
-            <TextInput label='Name' top='139px' />
-            <TextInput label='Author' top='253px' />
-            <TextAreaInput label='Description' top='368px' />
-            <AddBookBtn onClick={() => {}} />
-            <Navbar />
+            <TextInput label='Name' top='139px' value={name} onChange={e => onChangeName(e.target.value)} />
+            <TextInput label='Author' top='253px' value={author} onChange={e => onChangeAuthor(e.target.value)} />
+            <TextAreaInput label='Description' top='368px' value={description} onChange={e => onChangeDesc(e.target.value)} />
+            <AddBookBtn />
+            <Navbar name={name} author={author} description={description} />
         </Background>
     );
 }
