@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 export const TextAreaInput = ({label, top}) => {
     const [text, onChangeText] = useState('');
@@ -7,7 +7,7 @@ export const TextAreaInput = ({label, top}) => {
     return (
         <TAContainer top={top}>
             <Label label={label}/>
-            <InputArea value={text} onChangeText={onChangeText} />
+            <InputArea value={text} onChange={e => onChangeText(e.target.value)} />
         </TAContainer>
     );
 }
@@ -37,7 +37,7 @@ const SLabel = styled.span`
     margin-left: 0px;
     width: 46px;
     height: 18px;
-    font-family: SFProText;
+    font-family: SF Pro Text;
     font-size: 14px;
     font-weight: 700;
     line-height: 18px;
@@ -45,10 +45,10 @@ const SLabel = styled.span`
     color: #000000;
 `;
 
-const InputArea = (text, onChangeText) => {
+const InputArea = () => {
     return (
         <>
-            <SInputArea text={text} onChangeText={onChangeText} />
+            <SInputArea />
         </>
     );
 }

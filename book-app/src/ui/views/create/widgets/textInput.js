@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 export const TextInput = ({label, top}) => {
     const [text, onChangeText] = useState('');
-
+    
     return (
         <TIContainer top={top}>
             <Label label={label} />
-            <Input value={text} onChangeText={onChangeText} />
+            <Input value={text} onChange={e => onChangeText(e.target.value)} />
         </TIContainer>
     );
 }
@@ -37,7 +37,7 @@ const SLabel = styled.span`
     margin-left: 0px;
     width: 46px;
     height: 18px;
-    font-family: SFProText;
+    font-family: SF Pro Text;
     font-size: 14px;
     font-weight: 700;
     line-height: 18px;
@@ -45,10 +45,10 @@ const SLabel = styled.span`
     color: #000000;
 `;
 
-const Input = (text, onChangeText) => {
+const Input = () => {
     return (
         <>
-            <SInput text={text} onChangeText={onChangeText} />
+            <SInput />
         </>
     );
 }
