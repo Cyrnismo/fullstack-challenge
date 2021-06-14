@@ -1,11 +1,12 @@
 import React from 'react';
+import '../../../App.css';
 import styled from 'styled-components';
 import {SearchBar} from './widgets/searchBar';
 import { BookShelf } from './widgets/bookShelf';
-import { UserGreetings } from './widgets/userGreetings';
 import { Navbar } from '../../commom_widgets/navbar';
+import { UserGreetings } from './widgets/userGreetings';
 
-export default function Home() {
+export default function Home() {  
     return(
         <Background>
             <SearchBar />
