@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 // define the default route that fetches all of our books
-router.get('/api/books', async function (req, res) {
+router.get('/', async function (req, res) {
     // data the conserves our API quota for development
     const placeholderData = [
         {
@@ -124,7 +124,7 @@ router.get('/api/books', async function (req, res) {
     }
 })
 
-router.post('/api/books/add', async function (req, res) {
+router.post('/add', async function (req, res) {
     const { book } = req.body
 
     const data = {
