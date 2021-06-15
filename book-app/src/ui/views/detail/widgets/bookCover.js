@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import hooked from '../../../../assets/images/hooked.jpg';
 
-export const BookCover = () => {
+export const BookCover = ({cover}) => {
     return (
         <>
-            <BCImage src={hooked} />
+            <BCImage src={cover} />
         </>
     );
 }
