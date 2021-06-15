@@ -28,9 +28,9 @@ export const Navbar = () => {
         setAdd(false);
     }
 
-    useEffect(() => {
+    /* useEffect(() => {
         console.log(isHome, isAdd, isPerson);
-    }, [isHome, isAdd, isPerson])
+    }, [isHome, isAdd, isPerson]) */
 
     return(
         <NContainer>

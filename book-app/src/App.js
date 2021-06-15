@@ -36,5 +36,5 @@ const Portrait = styled.div`
   border-radius: 16px;
   background: rgb(255,255,240);
   background: linear-gradient(180deg, rgba(255,255,240,1) 0%, rgba(255,238,239,1) 51%, rgba(255,216,220,1) 100%);
-  border: 2px solid black;
+  border: 3px solid black;
 `;
