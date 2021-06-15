@@ -2,11 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { Search } from '@styled-icons/boxicons-regular/Search';
 
-export const SearchBar = () => {
+export const SearchBar = ({onChange, placeholder, onKeyDownHandler}) => {
+
     return (
         <SBContainer>
             <SearchIcon size='24' />
-            <Bar />
+            <Bar
+              type="text"
+              onChange={onChange}
+              onKeyDown={onKeyDownHandler}
+              placeholder={placeholder}
+            />
         </SBContainer>
     );
 }
@@ -20,7 +26,6 @@ const SBContainer = styled.div`
     height: 48px;
     left: 19px;
     top: 50px;
-
     background: #FDFCFC;
     box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
     border-radius: 10px;
