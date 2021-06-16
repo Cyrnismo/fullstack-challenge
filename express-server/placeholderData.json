@@ -1,0 +1,50 @@
+[
+        {
+            "_id": "0",
+            "title": "Erva do Diabo",
+            "author": "Eduardo Castaneda",
+            "image": "http://localhost:3001/images/carlos_castaneda_erva_do_diabo.jpg"
+        },
+        {
+            "_id": "1",
+            "title": "Complete Poems",
+            "author": "Edward Cummings",
+            "image": "http://localhost:3001/images/edward_cummings_complete_poems.jpg"
+        },
+        {
+            "_id": "2",
+            "title": "Brave New World",
+            "author": "George Orwell",
+            "image": "http://localhost:3001/images/george_orwell_brave_new_world.jpg"
+        },
+        {
+            "_id": "3",
+            "title": "On The Road",
+            "author": "Jack Korouac",
+            "image": "http://localhost:3001/images/jack_kerouac_on_the_road.jpg"
+        },
+        {
+            "_id": "4",
+            "title": "A Metamorfose",
+            "author": "Kafka",
+            "image": "http://localhost:3001/images/kafka_a_metamorfose.jpg"
+        },
+        {
+            "_id": "5",
+            "title": "Farenheit 451",
+            "author": "Ray Bradbury",
+            "image": "http://localhost:3001/images/ray_bradbury_fahrenheit_451.jpg"
+        },
+        {
+            "_id": "6",
+            "title": "Walden: Life In The Woods",
+            "author": "H. D. Thoreau",
+            "image": "http://localhost:3001/images/thoreau_walden_life_in_the_woods.jpg"
+        },
+        {
+            "_id": "7",
+            "title": "Baudolino",
+            "author": "Umberto Eco",
+            "image": "http://localhost:3001/images/umberto_eco_baudolino.jpg"
+        }
+]
