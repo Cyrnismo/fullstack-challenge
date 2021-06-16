@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home</title>
+    </head>
+    <body>
+        <h1>Home Page</h1>
+
+        <main>
+            <% book.forEach(data => { %>
+                <ul>
+                    <li><h1><a href="/<%= data.id %>"><%= data.title %></a></h1></li>
+                    <li><h2><a href="/<%= data.id %>"><%= data.author %></a></h2></li>
+                    <li><p><a href="/<%= data.id %>"><%= data.description %></a></p></li>
+                    <li><img src="<%= data.image %>" alt="<%= data.title %>" /></h1></li>
+                    <li><p><%= data.description %></p></li>
+                </ul>
+            <% }) %>
+        </main>
+        
+    </body>
+</html>
