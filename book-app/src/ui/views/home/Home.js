@@ -1,36 +1,35 @@
 import '../../../App.css';
-import axios from 'axios';
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
-import {SearchBar} from './widgets/searchBar';
+import { SearchBar } from './widgets/searchBar';
 import { Navbar } from '../../commom_widgets/navbar';
 import { UserGreetings } from './widgets/userGreetings';
 import { BookShelf } from './widgets/bookShelf/bookShelf';
 import React, { useState, useEffect, useCallback } from 'react';
 
 export default function Home() {
-    let [books, setBooks] = useState([]);
-    let [data, setData] = useState([]);
-
-    const onKeyDownHandler = e => {
-      if (e.keyCode === 13) {
-          searchData(e);
-      }
-    };
+  let [data, setData] = useState([]);
+  let [books, setBooks] = useState([]);
 
     const searchData = (pattern) => {
-      const matches = [];
+      // console.log(pattern);
+      let matches = [];
 
       if (!pattern) {
         setData(books);
         return;
       }
 
-      const fuse = new Fuse(books.books, {
-        keys: ['title', 'author'],
-      });
+      const options = {
+        includeScore: true,
+        keys: ['book.title', 'book.author']
+      }
 
+
+      const fuse = new Fuse(books, options);
       const result = fuse.search(pattern);
+      // console.log(result);
+
       if (!result.length) {
         setData([]);
       } else {
@@ -42,22 +41,21 @@ export default function Home() {
     }
 
     const getBooks = useCallback(() => {
-        var _url = 'http://localhost:3001/api/books';
+      var _url = 'http://localhost:3001/api/books';
 
-        fetch(_url, { method: 'GET'} ).then(
-            async response => {
-                try {
-                    const data = await response.json();
-                    console.log(data);
-                    setBooks(books);
-                    setData(data);
-                } catch (error) {
-                    console.log('OMG! Error happened here!')
-                    console.log(error);
-                }
-            }
-        )
-    }, [books])
+      fetch(_url, { method: 'GET'} ).then(
+        async response => {
+          try {
+            const books = await response.json();
+            // console.log(books);
+            setBooks(books);
+          } catch (error) {
+            console.log('OMG! Error happened while fetching books!')
+            console.log(error);
+          }
+        }
+      )
+    }, [])
 
     useEffect(() => {
         getBooks()
@@ -68,7 +66,6 @@ export default function Home() {
             <SearchBar
               placeholder={"Let's jump into a new adventure!"}
               onChange={e => searchData(e.target.value)}
-              onKeyDownHandler={onKeyDownHandler}
             />
             <UserGreetings />
             <BookShelf books={books} data={data} />
@@ -82,5 +79,6 @@ const Background = styled.div`
     padding: 0.5vw;
     width: 100%;
     height: 100%;
+    box-shadow: inset 2.2px 2.2px 16px rgba(107, 103, 70, 0.5);
 `;
 

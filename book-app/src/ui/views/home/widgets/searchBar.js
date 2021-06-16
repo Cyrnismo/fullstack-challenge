@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Search } from '@styled-icons/boxicons-regular/Search';
 
-export const SearchBar = ({onChange, placeholder, onKeyDownHandler}) => {
+export const SearchBar = ({onChange, placeholder, handleKeyPress}) => {
 
     return (
         <SBContainer>
@@ -10,7 +10,7 @@ export const SearchBar = ({onChange, placeholder, onKeyDownHandler}) => {
             <Bar
               type="text"
               onChange={onChange}
-              onKeyDown={onKeyDownHandler}
+              onKeyPress={handleKeyPress}
               placeholder={placeholder}
             />
         </SBContainer>
