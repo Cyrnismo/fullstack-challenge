@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export const TextAreaInput = ({label, top}) => {
-    const [text, onChangeText] = useState('');
-
+export const TextAreaInput = ({label, top, value, onChange, handleKeyPress}) => {
     return (
         <TAContainer top={top}>
-            <Label label={label}/>
-            <InputArea value={text} onChange={e => onChangeText(e.target.value)} />
+            <SLabel>{label}</SLabel>
+            <SInputArea value={value} onChange={e => onChange(e.target.value)} onKeyPress={handleKeyPress} />
         </TAContainer>
     );
 }
@@ -23,14 +21,6 @@ const TAContainer = styled.div`
     top: ${(props) => props.top};
 `;
 
-const Label = ({label}) => {
-    return (
-        <>
-            <SLabel>{label}</SLabel>
-        </>
-    );
-}
-
 const SLabel = styled.span`
     position: relative;
     margin-right: auto;
@@ -44,14 +34,6 @@ const SLabel = styled.span`
     text-align: left;
     color: #000000;
 `;
-
-const InputArea = () => {
-    return (
-        <>
-            <SInputArea />
-        </>
-    );
-}
 
 const SInputArea = styled.textarea`
     margin-top: 0.25rem;

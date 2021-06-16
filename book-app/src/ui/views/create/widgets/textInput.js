@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export const TextInput = ({label, top}) => {
-    const [text, onChangeText] = useState('');
-    
+export const TextInput = ({label, top, value, onChange, handleKeyPress}) => {
     return (
         <TIContainer top={top}>
-            <Label label={label} />
-            <Input value={text} onChange={e => onChangeText(e.target.value)} />
+            <SLabel>{label}</SLabel>
+            <SInput value={value} onChange={e => onChange(e.target.value)} onKeyPress={handleKeyPress} />
         </TIContainer>
     );
 }
@@ -23,14 +21,6 @@ const TIContainer = styled.div`
     top: ${(props) => props.top};
 `;
 
-const Label = ({label}) => {
-    return (
-        <>
-            <SLabel>{label}</SLabel>
-        </>
-    );
-}
-
 const SLabel = styled.span`
     position: relative;
     margin-right: auto;
@@ -44,14 +34,6 @@ const SLabel = styled.span`
     text-align: left;
     color: #000000;
 `;
-
-const Input = () => {
-    return (
-        <>
-            <SInput />
-        </>
-    );
-}
 
 const SInput = styled.input`
     margin-top: 0.25rem;
