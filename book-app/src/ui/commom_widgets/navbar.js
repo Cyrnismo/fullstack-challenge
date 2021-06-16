@@ -49,10 +49,10 @@ const NContainer = styled.div`
     position: absolute;
     width: 375px;
     height: 59px;
-    top: 755px;
-    left: 2px;
+    top: 756.5px;
+    left: 3.4px;
     border-radius: 0px 0px 16px 16px;
-    box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
+    box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.5);
     background: #FFFFFF;
 `;
 
@@ -81,7 +81,7 @@ const BtnLabel = styled.h4`
 // Buttons ~
 
 const HomeBtn = (isHome) => {
-    console.log(`Home: ${isHome}`);
+    // console.log(`Home: ${isHome}`);
 
     return (
         <BtnContainer to='/'>
@@ -103,7 +103,7 @@ const HomeLabel = styled(BtnLabel)`
 `;
 
 const AddBtn = ({isAdd}) => {
-    console.log(`Add: ${isAdd}`);
+    // console.log(`Add: ${isAdd}`);
 
     return (
         <BtnContainer to='/create'>
@@ -124,7 +124,7 @@ const AddLabel = styled(BtnLabel)`
 `;
 
 const PersonBtn = ({isPerson}) => {
-    console.log(`Person: ${isPerson}`);
+    // console.log(`Person: ${isPerson}`);
 
     return (
         <BtnContainer to='/detail'>
