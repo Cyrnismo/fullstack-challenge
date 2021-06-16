@@ -16,4 +16,5 @@ const BCImage = styled.img`
     left: 113px;
     top: 84px;
     border: none;
+    z-index: 9999;
 `;

@@ -30,4 +30,5 @@ const Background = styled.div`
     height: 100%;
     border-radius: 16px;
     background: #FFF;
+    box-shadow: inset 2.2px 2.2px 16px rgba(107, 103, 70, 0.5);
 `;

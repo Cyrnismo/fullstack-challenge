@@ -38,7 +38,7 @@ const Image = styled.img`
     display: block;
     width: 105px;
     height: 153px;
-    box-shadow: 2px 2px 23px rgba(107, 103, 70, 0.125901);
+    box-shadow: 2px 2px 23px rgba(107, 103, 70, 0.3241);
 `;
 
 const BookTitle = ({title}) => {
@@ -57,12 +57,16 @@ const BTContainer = styled.div`
 `;
 
 const BTitle = styled.h2`
+    text-align: left;
+    width: 120px;
+    height: 12px;
     font-family: SF Pro Display;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
     line-height: 14px;
     color: rgba(49, 49, 49, 0.8);
+    overflow: hidden;
 `;
 
 const BookAuthor = ({author}) => {

@@ -28,6 +28,7 @@ const UGContainer = styled.div`
 
 const Title = styled.h1`
     margin-right: 10px;
+    margin-left: 8px;
     font-family: SF Pro Display, SF Pro Text;
     font-style: normal;
     font-weight: normal;
