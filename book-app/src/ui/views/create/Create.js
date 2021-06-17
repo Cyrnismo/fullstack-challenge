@@ -1,70 +1,40 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { TextInput } from './widgets/textInput';
 import { AddBookBtn } from './widgets/addBookBtn';
 import { Navbar } from '../../commom_widgets/navbar';
 import { TextAreaInput } from './widgets/textAreaInput';
-
-
+import getRandomImage from '../../../utils/getRandomImage';
 
 export default function Create() {
-    let [title, onChangeTitle] = useState('');
-    let [author, onChangeAuthor] = useState('');
-    let [description, onChangeDesc] = useState('');
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+  const image = getRandomImage();
+  // const [submitted, setSubmitted] = useState(false);
 
-    const handleKeyPress = (event) => {
-      if (event.keyCode === 'Enter' || event.keyCode === 13) {
-        createNewBook();
-      }
+  const addToShelf = () => {
+    axios.post("http://localhost:3001/create", {
+      title: title,
+      author: author,
+      description: description,
+      image: image
+    });
+  }
 
-      if (event.key === 'Enter' || event.key === 13) {
-        createNewBook();
-      }
-    };
-
-    const createNewBook = useCallback(() => {
-      console.log('createNewBook called!');
-      var _url = "http://localhost:3001/api/books/add";
-
-      const options = {
-        method: 'POST',
-        body: {
-          book: {
-            title: title,
-            author: author,
-            description: description
-          }
-        }
-      }
-
-      console.log(options.body);
-
-      fetch(_url, options).then(
-        async response => {
-          try {
-            const res = await response.json();
-            console.log(res);
-            onChangeTitle('');
-            onChangeAuthor('');
-            onChangeDesc('');
-          } catch (error) {
-            console.log('OMG! Error happened when adding book!');
-            console.log(error);
-          }
-        }
-      )
-    }, [title, author, description])
-
-    return (
-        <Background>
-            <Title>Add new book</Title>
-            <TextInput label='Name' top='139px' value={title} onChange={onChangeTitle} />
-            <TextInput label='Author' top='253px' value={author} onChange={onChangeAuthor} />
-            <TextAreaInput label='Description' top='368px' value={description} onChange={onChangeDesc} />
-            <AddBookBtn onKeyPress={handleKeyPress} createNewBook={createNewBook} />
-            <Navbar name={title} author={author} description={description} />
-        </Background>
-    );
+  return (
+      <Background>
+          <Title>Add new book</Title>
+          <Form>
+            <TextInput label='Name' top='139px' name={"title"} onChange={(e) => setTitle(e)} />
+            <TextInput label='Author' top='253px' name={"author"} onChange={(e) => setAuthor(e)} />
+            <TextAreaInput label='Description' top='368px' name={"description"} onChange={(e) => setDescription(e)} />
+          </Form>
+          <AddBookBtn onClick={addToShelf} />
+          <Navbar active={'create'} />
+      </Background>
+  );
 }
 
 const Background = styled.div`
@@ -90,3 +60,5 @@ const Title = styled.h1`
     line-height: 29px;
     color: #FF6978;
 `;
+
+const Form = styled.div``;
