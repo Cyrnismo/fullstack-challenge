@@ -27,7 +27,7 @@ const BContainer = styled.div`
 const BookCover = ({cover}) => {
     return (
         <>
-            <Link to='/detail'>
+            <Link to={'/detail/:id'}>
                 <Image src={cover}/>
             </Link>
         </>
