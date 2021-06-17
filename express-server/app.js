@@ -3,49 +3,38 @@ const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const adminRoute = require('./routes/admin');
-const MongoClient = require("mongodb").MongoClient;
+
+const PORT = process.env.PORT || 3001;
+const URI = process.env.DB_URI;
 
 const app = express();
 
-const PORT = process.env.PORT || 3001;
+const BookModel = require('./models/Book');
 
-const uri = process.env.DB_HOST;
+app.use(express.json());
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-client.connect(err => {
-  const collection = client.db("books").collection("shelf");
-  client.close();
-});
-
-app.set('view engine', 'ejs');
-app.set('views', './src/pages');
+mongoose.Promise = global.Promise;
+mongoose
+  .connect(URI, {
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    app.listen(process.env.DB_PORT, () => console.log(`Server and Database running on ${process.env.DB_PORT}, http://localhost:${process.env.DB_PORT}`));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 app.use(express.urlencoded({ extended: false }));
 
 app.use(cors());
 
 // Add headers
-app.use(express.json());
-
 app.use(express.static('public'));  
-app.use('/images', express.static('images')); 
-
-mongoose
-  .connect(process.env.DB_HOST, {
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-      app.listen(process.env.DB_PORT, () => console.log(`Server and Database running on ${process.env.DB_PORT}, http://localhost:${process.env.DB_PORT}`));
-  })
-  .catch((err) => {
-      console.log(err);
-  });
-
+app.use('/images', express.static('images'));
 
 const allowedOrigins = ['http://localhost:3000', 'mongodb://127.0.0.1:27017', 'http://localhost:8080'];
 app.use(
@@ -78,9 +67,30 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/', (req, res) => res.send('Home Route'));
+app.get("/", async (req, res) => {
+  BookModel.find({}, (err, result) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(result);
+  })
+});
 
-app.use('/', adminRoute);
+app.post("/create", async (req, res) => {
+  const bookTitle = req.body.title;
+  const bookAuthor = req.body.author;
+  const bookDescription = req.body.description;
+  const bookImage = req.body.image;
+
+  const book = new BookModel({ title: bookTitle, author: bookAuthor, description: bookDescription, image: bookImage });
+
+  try {
+    await book.save();
+    res.send("inserted data");
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
