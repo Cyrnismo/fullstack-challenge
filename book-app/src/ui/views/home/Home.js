@@ -1,77 +1,78 @@
 import '../../../App.css';
+import axios from 'axios';
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
 import { SearchBar } from './widgets/searchBar';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from '../../commom_widgets/navbar';
 import { UserGreetings } from './widgets/userGreetings';
 import { BookShelf } from './widgets/bookShelf/bookShelf';
-import React, { useState, useEffect, useCallback } from 'react';
 
 export default function Home() {
-  let [data, setData] = useState([]);
-  let [books, setBooks] = useState([]);
+  const [books, setBooks] = useState([]);
+  // const [currentBook, setCurrentBook] = useState([]);
 
-    const searchData = (pattern) => {
-      // console.log(pattern);
-      let matches = [];
+  const searchData = (pattern) => {
+    // console.log(pattern);
+    let matches = [];
 
-      if (!pattern) {
-        setData(books);
-        return;
-      }
-
-      const options = {
-        includeScore: true,
-        keys: ['book.title', 'book.author']
-      }
-
-
-      const fuse = new Fuse(books, options);
-      const result = fuse.search(pattern);
-      // console.log(result);
-
-      if (!result.length) {
-        setData([]);
-      } else {
-        result.forEach(({item}) => {
-          matches.push(item);
-        });
-        setData(matches);
-      }
+    if (!pattern) {
+      setBooks(books);
+      return;
     }
 
-    const getBooks = useCallback(() => {
-      var _url = 'http://localhost:3001/api/books';
+    const options = {
+      includeScore: true,
+      keys: ['title', 'author']
+    }
 
-      fetch(_url, { method: 'GET'} ).then(
-        async response => {
-          try {
-            const books = await response.json();
-            // console.log(books);
-            setBooks(books);
-          } catch (error) {
-            console.log('OMG! Error happened while fetching books!')
-            console.log(error);
-          }
-        }
-      )
-    }, [])
 
-    useEffect(() => {
-        getBooks()
-    }, [getBooks])
-    
-    return(
-        <Background>
-            <SearchBar
-              placeholder={"Let's jump into a new adventure!"}
-              onChange={e => searchData(e.target.value)}
-            />
-            <UserGreetings />
-            <BookShelf books={books} data={data} />
-            <Navbar />
-        </Background>
-    );
+    const fuse = new Fuse(books, options);
+    const result = fuse.search(pattern);
+    // console.log(result);
+
+    if (!result.length) {
+      setBooks([]);
+    } else {
+      result.forEach(({item}) => {
+        matches.push(item);
+      });
+      setBooks(matches);
+    }
+  }
+
+  const getBooks = () => {
+    axios.get("http://localhost:3001/").then((res) => {
+      console.log("getBooks(): ", res.data);
+      setBooks(res.data);
+    });
+  }
+
+/*   const refreshList = () => {
+    getBooks();
+    setCurrentBook([]);
+  };
+
+  //?: Move it to App.js
+  const setActiveBook = (book, index) => {
+    setCurrentBook(Book);
+  }; */
+
+  useEffect(() => {
+    getBooks()
+  }, [])
+  
+  return(
+      <Background>
+          <SearchBar
+            placeholder={"Let's jump into a new adventure!"}
+            onChange={e => searchData(e.target.value)}
+          />
+          <UserGreetings />
+          <BookShelf books={books} />
+          <Navbar />
+      </Background>
+  );
 }
 
 const Background = styled.div`

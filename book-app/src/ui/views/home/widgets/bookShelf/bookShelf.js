@@ -3,27 +3,14 @@ import styled from 'styled-components';
 import { Book } from './widgets/book';
 import React from 'react';
 
-export const BookShelf = ({data, books}) => {
-  function isEmpty() {
-    return Object.keys(data).length === 0;
-  }
-
+export const BookShelf = ({books}) => {
   return (
     <BSContainer>
-      {
-        (!isEmpty(data)) ?
-          data.map((book, key) => {
-            return (
-              <Book key={key} cover={book.book.image} title={book.book.title} author={book.book.author} />
-            );
-          })
-        :
-          books.map((book, key) => {
-            return (
-              <Book key={key} cover={book.book.image} title={book.book.title} author={book.book.author} />
-            );
-          })
-      }
+      {books && books.map((book, index) => {
+        return (
+          <Book key={index} cover={book.image} title={book.title} author={book.author} />
+        );
+      })}
     </BSContainer>
   );
 }
