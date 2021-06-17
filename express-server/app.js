@@ -81,6 +81,10 @@ app.post("/create", async (req, res) => {
   const bookAuthor = req.body.author;
   const bookDescription = req.body.description;
   const bookImage = req.body.image;
+  console.log(bookTitle);
+  console.log(bookAuthor);
+  console.log(bookDescription);
+  console.log(bookImage);
 
   const book = new BookModel({ title: bookTitle, author: bookAuthor, description: bookDescription, image: bookImage });
 

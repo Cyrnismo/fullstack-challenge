@@ -48,20 +48,14 @@ export default function Home() {
     });
   }
 
-/*   const refreshList = () => {
+  const refreshList = () => {
     getBooks();
-    setCurrentBook([]);
   };
-
-  //?: Move it to App.js
-  const setActiveBook = (book, index) => {
-    setCurrentBook(Book);
-  }; */
 
   useEffect(() => {
     getBooks()
   }, [])
-  
+
   return(
       <Background>
           <SearchBar
@@ -69,6 +63,7 @@ export default function Home() {
             onChange={e => searchData(e.target.value)}
           />
           <UserGreetings />
+          <RefreshButton />
           <BookShelf books={books} />
           <Navbar />
       </Background>
