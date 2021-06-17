@@ -3,6 +3,7 @@ import './assets/fonts/Roboto-Bold.ttf';
 import './assets/fonts/FontsFree-Net-SFProDisplay-Regular.ttf';
 import './assets/fonts/FontsFree-Net-SFProText-Bold.ttf';
 import './assets/fonts/FontsFree-Net-SFProText-Regular.ttf';
+import React from 'react';
 import styled from 'styled-components';
 import Home from './ui/views/home/Home';
 import Detail from './ui/views/detail/Detail';
@@ -14,15 +15,9 @@ export default function App() {
     <Router>
       <Portrait>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/detail">
-            <Detail />
-          </Route>
-          <Route path="/create">
-            <Create />
-          </Route>
+          <Route exact path="/" component={Home} />
+          <Route path="/detail/:id" component={Detail} />
+          <Route path="/create" component={Create} />
         </Switch>
       </Portrait>
     </Router>

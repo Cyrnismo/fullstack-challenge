@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const AddBookBtn = ({ handleKeyPress, createNewBook }) => {   
+export const AddBookBtn = ({ handleKeyPress, onClick }) => {   
     return (
-        <ABBtn onKeyPress={handleKeyPress} onClick={() => createNewBook()}>Add new book</ABBtn>
+        <ABBtn onKeyPress={handleKeyPress} onClick={() => onClick()}>Add new book</ABBtn>
     );
 }
 

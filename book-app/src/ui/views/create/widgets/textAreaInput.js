@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const TextAreaInput = ({label, top, value, onChange, handleKeyPress}) => {
+export const TextAreaInput = ({label, top, name, onChange}) => {
     return (
         <TAContainer top={top}>
             <SLabel>{label}</SLabel>
-            <SInputArea value={value} onChange={e => onChange(e.target.value)} onKeyPress={handleKeyPress} />
+            <SInputArea name={name} onChange={onChange} />
         </TAContainer>
     );
 }
