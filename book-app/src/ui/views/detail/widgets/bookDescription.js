@@ -27,11 +27,18 @@ const BDContainer = styled.div`
     width: 335px;
     height: 275px;
     left: 20px;
-    top: 443px;
+    top: 463px;
     text-align: left;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
+    }
 `;
 
 const BDescription = styled.p`
+    margin-top: -30px;
     font-family: SFProText;
     font-size: 14px;
     line-height: 25px;

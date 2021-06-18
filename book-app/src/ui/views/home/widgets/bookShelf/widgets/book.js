@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Book = ({cover, title, author}) => {
+export const Book = ({lastBookElement, id, cover, title, author}) => {
     return (
-        <BContainer>
-            <BookCover cover={cover} />
+        <BContainer innerRef={lastBookElement}>
+            <BookCover id={id} cover={cover} />
             <BookTitle title={title} />
             <BookAuthor author={author} />
         </BContainer>
@@ -24,10 +24,10 @@ const BContainer = styled.div`
     height: 190px;
 `;
 
-const BookCover = ({cover}) => {
+const BookCover = ({id, cover}) => {
     return (
         <>
-            <Link to={'/detail/:id'}>
+            <Link to={{ pathname: `/details`, state: { id: `${id}` } }}>
                 <Image src={cover}/>
             </Link>
         </>

@@ -16,7 +16,7 @@ export default function App() {
       <Portrait>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/detail/:id" component={Detail} />
+          <Route path="/details" component={Detail} />
           <Route path="/create" component={Create} />
         </Switch>
       </Portrait>
@@ -29,7 +29,6 @@ const Portrait = styled.div`
   height: 812px;
   overflow: hidden;
   border-radius: 16px;
-  background: rgb(255,255,240);
   background: linear-gradient(180deg, rgba(255,255,240,1) 0%, rgba(255,238,239,1) 51%, rgba(255,216,220,1) 100%);
   border: 3px solid black;
 `;

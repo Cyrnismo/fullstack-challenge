@@ -18,7 +18,10 @@ const BAContainer = styled.div`
 `;
 
 const BAuthor = styled.h2`
-    font-family: SFProDisplay;
+    width: 240px;
+    align-self: left;
+    text-align: left;
+    font-family: SF Pro Display;
     font-size: 16px;
     line-height: 19px;
     letter-spacing: 0.670588px;

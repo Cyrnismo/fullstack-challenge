@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const BookCover = ({cover}) => {
+export const BookCover = ({image}) => {
+    console.log(image);
+
     return (
         <>
-            <BCImage src={cover} />
+            <BCImage src={image} />
         </>
     );
 }
 
 const BCImage = styled.img`
+    display: block;
     position: absolute;
     width: 151px;
     height: 234px;
