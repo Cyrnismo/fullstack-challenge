@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { BGImage } from './widgets/bgImage';
 import { BookCover } from './widgets/bookCover';
@@ -10,29 +11,34 @@ import { BookDescription } from './widgets/bookDescription';
 
 
 export default function Detail(props) {
+  const { id } = props.location.state;
+  console.log(id); 
+  
   const initialBookState = {
-    title: "",
-    author: "",
-    description: "",
-    image: ""
+    title: props.title,
+    author: props.author,
+    description: props.description,
+    image: props.image
   };
   const [currentBook, setCurrentBook] = useState(initialBookState);
-
-/*   const getBook = id => {
-  ShelfDataService.get(id)
-    .then(response => {
-      setCurrentBook(response.data);
-      console.log(response.data);
-    })
-    .catch(e => {
-      console.log(e);
+  // const [loading, setLoading] = useState(false);
+  
+  const getBookById = useCallback(() => {
+    // setLoading(true);
+    axios({
+      method: 'GET',
+      url: `http://localhost:3001/detail/${id}`
+    }).then((res) => {
+      // console.log(res.data)
+      setCurrentBook(res.data);
+    }).catch((err) => {
+      console.log(err);
     });
-  }; */
-  
-  /* useEffect(() => {
-    getBook(props.match.params.id);
-  }, [props.match.params.id]); */
-  
+  }, [id])
+
+  useEffect(() => {
+    getBookById()
+  }, [getBookById]);
 
   return(
     <Background>    
