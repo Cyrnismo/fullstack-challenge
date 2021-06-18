@@ -6,9 +6,11 @@ https://www.figma.com/file/KFElqzD983WNyvMY1SaF0c/book-app?node-id=0%3A1
 ## Como rodar:
 
 - Clone this repository
-- Open ./fullstack-challenge on terminal
-- type "npm run servers" to run front-end app and back-end server
-- have fun adding new books to this simple book shelf :)
+- Open the repository path you choose on terminal
+- This project uses ReactJS, NodeJS and MongoDB. Please install all external depencies
+- Install projects inner depencies by running "npm install" on each folder
+- Type "npm run servers" to run front-end app and back-end server
+- Have fun adding new books to this simple book shelf :)
 
 ## Requisitos:
 
