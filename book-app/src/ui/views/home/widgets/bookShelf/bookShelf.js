@@ -32,9 +32,10 @@ const BSContainer = styled.div`
   top: 21%;
   left: -10px;
   padding-top: 20px;
-  padding-left: 20px;
+  padding-left: 16px;
+  padding-bottom: 40px;
   width: 94%;
-  height: 566px;
+  height: 546px;
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
