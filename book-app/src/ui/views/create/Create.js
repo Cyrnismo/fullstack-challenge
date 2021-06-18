@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { TextInput } from './widgets/textInput';
 import { AddBookBtn } from './widgets/addBookBtn';
 import { Navbar } from '../../commom_widgets/navbar';
@@ -8,30 +9,44 @@ import { TextAreaInput } from './widgets/textAreaInput';
 import getRandomImage from '../../../utils/getRandomImage';
 
 export default function Create() {
+  let history = useHistory();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
   const image = getRandomImage();
   // const [submitted, setSubmitted] = useState(false);
 
-  const addToShelf = () => {
-    axios.post("http://localhost:3001/create", {
-      title: title,
-      author: author,
-      description: description,
-      image: image
+  const addToShelf = useCallback(() => {
+    console.log(title, author, description, image);
+
+    axios({
+      method: 'POST',
+      url: 'http://localhost:3001/create',
+      data: {
+        title: title,
+        author: author,
+        description: description,
+        image: image
+      }
+    }).then((res) => {
+      console.log(res);
+    }).catch(e => {
+      console.log(e);
     });
-  }
+  }, [title, author, description, image]);
 
   return (
       <Background>
           <Title>Add new book</Title>
           <Form>
-            <TextInput label='Name' top='139px' name={"title"} onChange={(e) => setTitle(e)} />
-            <TextInput label='Author' top='253px' name={"author"} onChange={(e) => setAuthor(e)} />
-            <TextAreaInput label='Description' top='368px' name={"description"} onChange={(e) => setDescription(e)} />
+            <TextInput label='Name' top='139px' name={"title"} onChange={(e) => setTitle(e.target.value)} />
+            <TextInput label='Author' top='253px' name={"author"} onChange={(e) => setAuthor(e.target.value)} />
+            <TextAreaInput label='Description' top='368px' name={"description"} onChange={(e) => setDescription(e.target.value)} />
           </Form>
-          <AddBookBtn onClick={addToShelf} />
+          <AddBookBtn onClick={() => {
+            addToShelf();
+            history.push('/');
+          }} />
           <Navbar active={'create'} />
       </Background>
   );
