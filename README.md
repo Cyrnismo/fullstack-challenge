@@ -3,8 +3,18 @@
 ## Design/Screens
 https://www.figma.com/file/KFElqzD983WNyvMY1SaF0c/book-app?node-id=0%3A1
 
+## Como rodar:
 
-The website design has 4 screens, which are:
+- Clone this repository
+- Open ./fullstack-challenge on terminal
+- type "npm run servers" to run front-end app and back-end server
+- have fun adding new books to this simple book shelf :)
+
+## Requisitos:
+
+https://github.com/FotonTech/fullstack-challenge (check here for more detailed requisites)
+
+Basically the website design has 4 screens, which are:
 
 ### Home, Search, Books Details, New Book
 
