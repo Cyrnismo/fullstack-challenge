@@ -68,11 +68,11 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", async (req, res) => {
-  BookModel.find({}, (err, result) => {
+  BookModel.find({}, (err, books) => {
     if (err) {
       res.send(err);
     }
-    res.send(result);
+    res.send(books);
   })
 });
 
@@ -81,10 +81,6 @@ app.post("/create", async (req, res) => {
   const bookAuthor = req.body.author;
   const bookDescription = req.body.description;
   const bookImage = req.body.image;
-  console.log(bookTitle);
-  console.log(bookAuthor);
-  console.log(bookDescription);
-  console.log(bookImage);
 
   const book = new BookModel({ title: bookTitle, author: bookAuthor, description: bookDescription, image: bookImage });
 
@@ -94,6 +90,19 @@ app.post("/create", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.get("/detail/:id", async (req, res) => {
+  const id = req.params.id;
+
+  console.log(id);
+
+  BookModel.findById(id)
+  .then(book => {
+    if (!book) { return res.status(404).end() };
+    return res.status(200).json(book);
+  })
+  .catch(err => next(err));
 });
 
 app.use(function (req, res, next) {
