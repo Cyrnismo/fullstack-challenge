@@ -3,21 +3,37 @@ import axios from 'axios';
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
 import { SearchBar } from './widgets/searchBar';
-import React, { useState, useEffect } from 'react';
 import { Navbar } from '../../commom_widgets/navbar';
 import { UserGreetings } from './widgets/userGreetings';
+import { RefreshButton } from './widgets/refreshButton';
 import { BookShelf } from './widgets/bookShelf/bookShelf';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 export default function Home() {
+  const observer = useRef();
   const [books, setBooks] = useState([]);
-  // const [currentBook, setCurrentBook] = useState([]);
+  const [hasMore, setHasMore] = useState(false);
+  const [loading, setLoading] = useState(false);
+  // const [pageNumber, setPageNumber] = useState(1);
+  const lastBookElementRef = useCallback(node => {
+    if (loading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        // setPageNumber(prevPageNumber => prevPageNumber + 1);
+      }
+    })
+    if (node) observer.current.observe(node);
+    console.log(node);
+  }, [loading, hasMore]);
 
   const searchData = (pattern) => {
     // console.log(pattern);
     let matches = [];
+    // setPageNumber(1);
 
     if (!pattern) {
-      setBooks(books);
+      refreshList();
       return;
     }
 
@@ -32,7 +48,7 @@ export default function Home() {
     // console.log(result);
 
     if (!result.length) {
-      setBooks([]);
+      refreshList();
     } else {
       result.forEach(({item}) => {
         matches.push(item);
@@ -41,20 +57,34 @@ export default function Home() {
     }
   }
 
-  const getBooks = () => {
-    axios.get("http://localhost:3001/").then((res) => {
-      console.log("getBooks(): ", res.data);
-      setBooks(res.data);
+  const getBooks = useCallback((pageNumber) => {
+    setLoading(true);
+
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3001/',
+      params: {page: pageNumber},
+    }).then((res) => {
+      setBooks(prevState => {
+        return [...prevState, ...res.data]
+      })
+      setHasMore(res.data.length > 0);
+      setLoading(false);
+    }).catch(e => {
+      console.log(e);
     });
-  }
+  }, [])
 
   const refreshList = () => {
+    setBooks([]);
     getBooks();
+    // setPageNumber(1);
   };
 
   useEffect(() => {
-    getBooks()
-  }, [])
+    // setPageNumber(1);
+    getBooks();
+  }, [getBooks])
 
   return(
       <Background>
@@ -63,8 +93,8 @@ export default function Home() {
             onChange={e => searchData(e.target.value)}
           />
           <UserGreetings />
-          <RefreshButton />
-          <BookShelf books={books} />
+          <RefreshButton onClick={() => refreshList()} />
+          <BookShelf books={books} innerRef={lastBookElementRef} />
           <Navbar />
       </Background>
   );
