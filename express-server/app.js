@@ -33,8 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 // Add headers
-app.use(express.static('public'));  
+app.use(express.static('public'));
 app.use('/images', express.static('images'));
+app.use(express.static(path.join(__dirname, '../book-app/build')));
 
 const allowedOrigins = ['http://localhost:3000', 'mongodb://127.0.0.1:27017', 'http://localhost:8080'];
 app.use(
