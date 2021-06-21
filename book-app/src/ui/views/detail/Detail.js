@@ -12,8 +12,7 @@ import { BookDescription } from './widgets/bookDescription';
 
 export default function Detail(props) {
   const { id } = props.location.state;
-  console.log(id); 
-  
+
   const initialBookState = {
     title: props.title,
     author: props.author,
@@ -22,7 +21,7 @@ export default function Detail(props) {
   };
   const [currentBook, setCurrentBook] = useState(initialBookState);
   // const [loading, setLoading] = useState(false);
-  
+
   const getBookById = useCallback(() => {
     // setLoading(true);
     axios({
@@ -41,7 +40,7 @@ export default function Detail(props) {
   }, [getBookById]);
 
   return(
-    <Background>    
+    <Background>
       <BGImage />
       <BackButton />
       <BookCover image={currentBook.image} />
