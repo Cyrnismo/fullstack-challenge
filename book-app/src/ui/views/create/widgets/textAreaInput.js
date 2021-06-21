@@ -48,6 +48,7 @@ const SInputArea = styled.textarea`
     border-radius: 10px;
     resize: none;
     box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
+    white-space: pre-line;
 
     inputArea::active,
     inputArea::focus {
