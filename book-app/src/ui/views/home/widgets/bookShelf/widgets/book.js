@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Book = ({lastBookElement, id, cover, title, author}) => {
+export const Book = ({index, lastBookElementRef, id, cover, title, author}) => {
     return (
-        <BContainer innerRef={lastBookElement}>
+        <BContainer key={index} ref={lastBookElementRef}>
             <BookCover id={id} cover={cover} />
             <BookTitle title={title} />
             <BookAuthor author={author} />

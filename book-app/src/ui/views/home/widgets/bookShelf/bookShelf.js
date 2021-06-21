@@ -9,7 +9,7 @@ export const BookShelf = ({books, lastBookElementRef}) => {
       {books && books.map((book, index) => {
         if (books.length === index + 1) {
           return (
-            <Book key={index} id={book._id} cover={book.image} title={book.title} author={book.author} innerRef={lastBookElementRef} />
+            <Book key={index} id={book._id} cover={book.image} title={book.title} author={book.author} lastBookElementRef={lastBookElementRef} />
           );
         } else {
           return (
@@ -41,6 +41,7 @@ const BSContainer = styled.div`
   scrollbar-width: none;
   border-radius: 16px 16px 16px 0px;
   box-shadow: inset 2.2px 2.2px 16px rgba(107, 103, 70, 0.1293);
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     display: none;

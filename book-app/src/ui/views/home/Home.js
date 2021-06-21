@@ -11,26 +11,65 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 export default function Home() {
   const observer = useRef();
+
   const [books, setBooks] = useState([]);
-  const [hasMore, setHasMore] = useState(false);
+  const [limit, setLimit] = useState(9);
+  const [skip, setSkip] = useState(0);
+  const [hasMore, setHasMore] = useState(0);
   const [loading, setLoading] = useState(false);
-  // const [pageNumber, setPageNumber] = useState(1);
-  const lastBookElementRef = useCallback(node => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        // setPageNumber(prevPageNumber => prevPageNumber + 1);
-      }
-    })
-    if (node) observer.current.observe(node);
-    console.log(node);
-  }, [loading, hasMore]);
+
+  const nextPage = useCallback((skip, limit) => {
+    setSkip(skip + limit);
+  }, [])
+
+  const getBooks = useCallback((limit, skip) => {
+    let cancel;
+    setLoading(true);
+
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3001/',
+      params: {
+        limit: limit,
+        skip: skip
+      },
+      cancelToken: new axios.CancelToken(c => cancel = c)
+    }).then((res) => {
+      //! Still having some issues with pagination duplicating last books ;(
+      setHasMore(res.data.length);
+      if (hasMore === 0) { return }
+      else limit = hasMore;
+
+      setBooks(prevState => {
+        return [...prevState, ...res.data]
+      });
+
+      nextPage(skip, limit);
+      setLoading(false);
+    }).catch(e => {
+      if (axios.isCancel(e)) return;
+      console.log(e);
+    });
+    return () => cancel();
+  }, [hasMore, nextPage])
+
+  const lastBookElementRef = useCallback(  // (*)
+    (node) => {
+      if (loading || (hasMore === 0)) { return; }
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && (hasMore > 0)) {
+          getBooks(limit, skip);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore, getBooks, limit, skip]
+  );
 
   const searchData = (pattern) => {
     // console.log(pattern);
     let matches = [];
-    // setPageNumber(1);
 
     if (!pattern) {
       refreshList();
@@ -57,34 +96,15 @@ export default function Home() {
     }
   }
 
-  const getBooks = useCallback((pageNumber) => {
-    setLoading(true);
-
-    axios({
-      method: 'GET',
-      url: 'http://localhost:3001/',
-      params: {page: pageNumber},
-    }).then((res) => {
-      setBooks(prevState => {
-        return [...prevState, ...res.data]
-      })
-      setHasMore(res.data.length > 0);
-      setLoading(false);
-    }).catch(e => {
-      console.log(e);
-    });
-  }, [])
-
   const refreshList = () => {
     setBooks([]);
-    getBooks();
-    // setPageNumber(1);
+    setSkip(0);
+    getBooks(limit, skip);
   };
 
   useEffect(() => {
-    // setPageNumber(1);
-    getBooks();
-  }, [getBooks])
+    getBooks(limit, skip);
+  }, [getBooks, limit, skip])
 
   return(
       <Background>
@@ -94,7 +114,7 @@ export default function Home() {
           />
           <UserGreetings />
           <RefreshButton onClick={() => refreshList()} />
-          <BookShelf books={books} innerRef={lastBookElementRef} />
+          <BookShelf books={books} lastBookElementRef={lastBookElementRef} />
           <Navbar />
       </Background>
   );

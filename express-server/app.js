@@ -35,7 +35,7 @@ app.use(cors());
 // Add headers
 app.use(express.static('public'));
 app.use('/images', express.static('images'));
-app.use(express.static(path.join(__dirname, '../book-app/build')));
+// app.use(express.static(path.join(__dirname, '../book-app/build')));
 
 const allowedOrigins = ['http://localhost:3000', 'mongodb://127.0.0.1:27017', 'http://localhost:8080'];
 app.use(
@@ -69,12 +69,31 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", async (req, res) => {
-  BookModel.find({}, (err, books) => {
+  let limit = parseInt(req.query.limit);
+  let skip = parseInt(req.query.skip);
+  let size;
+  BookModel.find().exec({}, (err, books) => {
+    if (err) { res.send(err); }
+    size = books.length;
+  });
+
+  return BookModel.find({}, (err, books) => {
+    if (books.length === 0) { return };
+
     if (err) {
       res.send(err);
     }
-    res.send(books);
-  })
+
+    if (books.length <= limit) {
+      limit = books.length;
+    }
+
+    if ((limit + skip + books.length) == size) {
+      return;
+    } else {
+      res.send(books);
+    }
+  }).skip(skip).limit(limit);
 });
 
 app.post("/create", async (req, res) => {
